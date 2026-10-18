@@ -1,0 +1,13 @@
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 14
+names: ['bag', 'cash-in-transit bag', 'cash_stack', 'counter', 'document', 'door_open', 'folder', 'jacket', 'key_in', 'phone', 'safe_open', 'screen_locked', 'screen_on', 'uv_lamp']
+
+roboflow:
+  workspace: angsars-workspace
+  project: datathon-frames
+  version: 1
+  license: Private
+  url: https://app.roboflow.com/angsars-workspace/datathon-frames/1

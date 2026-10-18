@@ -1,0 +1,501 @@
+{
+  "n_frames": 6,
+  "tp": 10,
+  "fp": 10,
+  "fn": 0,
+  "tn": 0,
+  "err": 0,
+  "rows": [
+    {
+      "stem": "X-1",
+      "file": "X-1.mov",
+      "gold": true,
+      "code": "V-18",
+      "gold_ts": 22.0,
+      "gold_desc": "Кассир убрал часть купюр из пересчитанной стопки себе. Кассир не отдал всю пересчитанную стопку клиенту.",
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 12.6,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Мужчина и женщина общаются в офисе, что может указывать на незаконную передачу или обмен конфиденциальной информацией."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-2",
+      "file": "X-2.mov",
+      "gold": true,
+      "code": "V-11",
+      "gold_ts": 10.0,
+      "gold_desc": "Нет идентификации клиента. Операция начата без передачи и просмотра удостоверения.",
+      "pred": true,
+      "pred_ts": 14.2,
+      "wall_sec": 11.3,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 14.2,
+            "description": "Человек в куртке снимает деньги с кассового аппарата, что может указывать на незаконное использование или кражу."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-3",
+      "file": "Х-3.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 16.8,
+      "wall_sec": 15.0,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 16.8,
+            "description": "Человек в черной одежде держит в руках деньги, что может указывать на незаконное использование или хранение наличных."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-4",
+      "file": "Х-4.mov",
+      "gold": true,
+      "code": "V-01",
+      "gold_ts": 57.0,
+      "gold_desc": "Кассир положил купюры второго клиента в стопку, где лежали неубранные деньги первого клиента. Деньги каждой операции должны считаться отдельно. Деньги первого клиента должны быть убраны в сейф",
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 16.8,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "На кадре видна женщина за компьютером, а также мужчина, который подходит к ней и начинает говорить. Это может быть нарушением, так как мужчина, возможно, пытается получить доступ к информации или системе, которая не предназначена для него."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-5",
+      "file": "Х-5.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 11.1,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Мужчина входит в кабинет, а женщина работает за компьютером. Это может быть нарушением, так как мужчина может быть незнакомым человеком или сотрудником, который не должен входить в кабинет без разрешения."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-8",
+      "file": "Х-8.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 25.4,
+      "wall_sec": 10.2,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 25.4,
+            "description": "Женщина использует мобильный телефон, что может указывать на неправильное использование кассового оборудования."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-10",
+      "file": "Х-10.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 9.5,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина сидит за кассовым аппаратом, что может указывать на незаконное использование или управление кассовым оборудованием."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-11",
+      "file": "Х-11.mov",
+      "gold": true,
+      "code": "V-04",
+      "gold_ts": 18.0,
+      "gold_desc": "Кассир вышел из кассы, не выключив все устройства. Оставил сейф с ключом. Не забрал ключи от сейфа.",
+      "pred": true,
+      "pred_ts": null,
+      "wall_sec": 15.7,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation"
+      },
+      "viol_types": []
+    },
+    {
+      "stem": "X-12",
+      "file": "Х-12.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 28.2,
+      "wall_sec": 33.0,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 28.2,
+            "description": "Женщина выходит из офиса, что может указывать на попытку скрыть или уничтожить доказательства."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-13",
+      "file": "Х-13.mov",
+      "gold": true,
+      "code": "V-07",
+      "gold_ts": 47.0,
+      "gold_desc": "Кассир приняла и положила купюры в сейф, но деньги не прошли счётчик. Не пересчитала сумму купюр и не зафиксировала сумму в системе через ноутбук.",
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 10.5,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина вынимает документы из сумки и кладет их на стол. Это может быть нарушением, так как она может быть в состоянии, когда это не должно происходить."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-14",
+      "file": "Х-14.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 8.9,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина в кабинете банка проверяет документы, что может указывать на незаконную деятельность."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-15",
+      "file": "Х-15.mov",
+      "gold": true,
+      "code": "V-04",
+      "gold_ts": 15.0,
+      "gold_desc": "Кассир вышел из кассы, а деньги клиента лежали на столе. Уходить оставив деньги или документы нельзя. Нужно положить деньги или документы в сейф перед уходом из кассы.",
+      "pred": true,
+      "pred_ts": 10.4,
+      "wall_sec": 8.4,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 10.4,
+            "description": "Женщина работает за кассовым столом, что может указывать на незаконное использование или управление кассовым оборудованием."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-16",
+      "file": "Х-16.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 15.1,
+      "wall_sec": 11.0,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 15.1,
+            "description": "Мужчина входит в кабинет, а женщина продолжает работу за компьютером. Это может быть нарушением, так как она может быть занята другой работой или не отвечать на вызовы."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-17",
+      "file": "Х-17.mov",
+      "gold": true,
+      "code": "V-11",
+      "gold_ts": 7.0,
+      "gold_desc": "Нет идентификации клиента. Операция начата без передачи и просмотра удостоверения. Кассир один формирует пачки или вскрывает сумку инкассации, клиента у окна нет",
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 9.8,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Мужчина входит в кабинет, держа сумку, что может быть признаком незаконной деятельности."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-18",
+      "file": "Х-18.mov",
+      "gold": true,
+      "code": "V-15",
+      "gold_ts": 20.0,
+      "gold_desc": "Посторонний в кассе. В кассу зашел второй клиент до того как закончили обслуживать первого клиента.",
+      "pred": true,
+      "pred_ts": 18.8,
+      "wall_sec": 11.4,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 18.8,
+            "description": "Мужчина входит в кабинет, сидящий человек дает ему что-то, а другой человек также присоединяется. Это может указывать на незаконную передачу или обмен документами."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-19",
+      "file": "Х-19.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 10.2,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "На кадре видна женщина за компьютером, а также часть лица человека за ее спиной. Это может быть нарушением, так как лицо человека, видимого за спиной женщины, не должно быть видимо."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-20",
+      "file": "Х-20.mov",
+      "gold": true,
+      "code": "V-03",
+      "gold_ts": 5.0,
+      "gold_desc": "Деньги оставлены открыто. Кассир не закрыл сейф после того как вытащил одну стопку купюр.",
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 12.1,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина работает за кассовым аппаратом, что может указывать на незаконное использование или управление кассой."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-21",
+      "file": "Х-21.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 114.1,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина работает за компьютером в офисе, что может указывать на незаконное использование банковской системы."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-22",
+      "file": "Х-22.mov",
+      "gold": true,
+      "code": "V-04",
+      "gold_ts": 14.0,
+      "gold_desc": "Кассир вышел из кассы, не выключив все устройства. Оставил сейф с ключом. Не забрал ключи от сейфа.",
+      "pred": true,
+      "pred_ts": 14.0,
+      "wall_sec": 453.9,
+      "tag": "TP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 14.0,
+            "description": "Женщина выходит из офиса, что может указывать на попытку скрыть или уничтожить доказательства."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    },
+    {
+      "stem": "X-23",
+      "file": "Х-23.mov",
+      "gold": false,
+      "code": null,
+      "gold_ts": null,
+      "gold_desc": null,
+      "pred": true,
+      "pred_ts": 0.0,
+      "wall_sec": 445.4,
+      "tag": "FP",
+      "parsed": {
+        "verdict": "violation",
+        "violations": [
+          {
+            "type": "кратко",
+            "timecode_sec": 0.0,
+            "description": "Женщина работает на компьютере в кабинете, что может указывать на незаконное использование банковской системы."
+          }
+        ]
+      },
+      "viol_types": [
+        "кратко"
+      ]
+    }
+  ]
+}

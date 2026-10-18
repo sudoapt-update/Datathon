@@ -1,0 +1,1038 @@
+{
+  "meta": {
+    "title": "Алгоритмы и правила кассовой дисциплины для модели",
+    "version": "1.0",
+    "compiled": "2026-10-18",
+    "language": "ru",
+    "refs_source": "source_id — из kassovye_operacii_RK.json",
+    "new_flag": "new=true — правило не встречается в текущей разметке, добавлено на случай новых типов нарушений в тесте"
+  },
+  "classes": [
+    "counter",
+    "uv_lamp",
+    "cash_stack",
+    "document",
+    "safe_open",
+    "door_open",
+    "phone",
+    "bag",
+    "cash-in-transit bag",
+    "folder",
+    "jacket",
+    "key_in",
+    "screen_locked",
+    "screen_on",
+    "person (готовая модель COCO)",
+    "person (pose) — руки/тело, готовая модель позы"
+  ],
+  "params": {
+    "T_cash_idle_s": 15,
+    "T_safe_open_s": 8,
+    "T_door_open_s": 5,
+    "T_unclear_s": 3,
+    "_calibration": "порог = max(значение в роликах NO_VIOLATION) × 1.2, но не ниже стартового"
+  },
+  "algorithms": [
+    {
+      "id": "A1",
+      "name": "Новый человек подошёл к окну",
+      "steps": [
+        "Предыдущая операция закрыта: на столе нет cash_stack/document, нет safe_open.",
+        "Человек передаёт document через окно; кассир держит его и смотрит.",
+        "Только после этого начинается движение cash_stack.",
+        "Если это инкассатор с cash-in-transit bag — тоже сначала document."
+      ]
+    },
+    {
+      "id": "A2",
+      "name": "Приём денег от клиента",
+      "steps": [
+        "document проверен (A1).",
+        "cash_stack приходит через окно.",
+        "cash_stack проходит через counter.",
+        "Если кассир достаёт деньги из counter второй раз — вторая (отбракованная) стопка проверяется у uv_lamp.",
+        "Сумма вносится в ноутбук (screen_on, руки у ноутбука).",
+        "safe_open → cash_stack в сейф → сейф закрыт.",
+        "document возвращён клиенту, стол пуст."
+      ]
+    },
+    {
+      "id": "A3",
+      "name": "Выдача денег клиенту",
+      "steps": [
+        "document проверен (A1).",
+        "safe_open → cash_stack из сейфа → сейф сразу закрыт.",
+        "cash_stack проходит counter на глазах клиента.",
+        "cash_stack уходит клиенту через окно целиком.",
+        "Запись в ноутбук, document возвращён, стол пуст."
+      ]
+    },
+    {
+      "id": "A4",
+      "name": "Обмен валюты",
+      "steps": [
+        "Выполняется A2 (приём), принятые деньги убираются в сейф.",
+        "Затем A3 (выдача). Принятая и выдаваемая стопки никогда не лежат вместе."
+      ]
+    },
+    {
+      "id": "A5",
+      "name": "Уход кассира",
+      "steps": [
+        "Все cash_stack, document, folder убраны в сейф.",
+        "Сейф закрыт (нет safe_open), ключ вынут (нет key_in).",
+        "Ноутбук заблокирован (screen_locked).",
+        "Кассир берёт/надевает jacket и выходит.",
+        "Дверь закрыта (нет door_open)."
+      ]
+    },
+    {
+      "id": "A6",
+      "name": "Инкассация",
+      "steps": [
+        "Инкассатор показывает document.",
+        "cash-in-transit bag передаётся через окно; кассир осматривает сумку (держит, поворачивает).",
+        "Вскрытие — только при инкассаторе.",
+        "Содержимое проходит counter, затем в сейф.",
+        "Сумка не лежит на столе без присмотра."
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "R01",
+      "group": "Документы и люди",
+      "code": "V-11",
+      "condition": "Деньги прошли через окно, а document от нового человека не передавался.",
+      "classes": [
+        "document",
+        "cash_stack",
+        "person"
+      ],
+      "timecode": "первая передача денег через окно",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "X-2",
+        "Х-17"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 7, п. 19 пп. 1), п. 31 пп. 1)",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "AML_191",
+          "point": "ст. 5",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "group": "Документы и люди",
+      "code": "V-23",
+      "condition": "Инкассатору отдали или от него приняли cash-in-transit bag без показа document.",
+      "classes": [
+        "cash-in-transit bag",
+        "document",
+        "person"
+      ],
+      "timecode": "передача сумки",
+      "severity": "критическая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 38, п. 39, п. 101",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "group": "Документы и люди",
+      "code": "V-15",
+      "condition": "Второй клиент подошёл или зашёл, пока операция с первым не закрыта.",
+      "classes": [
+        "person"
+      ],
+      "timecode": "появление второго клиента",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-18"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_49",
+          "point": "п. 41",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 8, п. 21",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "group": "Документы и люди",
+      "code": "V-15",
+      "condition": "В зоне кассира второй человек, который не стоит рядом при пересчёте (не похож на контролёра).",
+      "classes": [
+        "person"
+      ],
+      "timecode": "вход второго человека",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_49",
+          "point": "п. 41",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 8, п. 21",
+          "basis_type": "вывод из нормы"
+        }
+      ],
+      "note": "Контролёр/заведующий допустимы — при сомнении VLM-проверка."
+    },
+    {
+      "id": "R05",
+      "group": "Документы и люди",
+      "code": "V-15",
+      "condition": "Рука клиента зашла через окно глубоко в зону стола кассира.",
+      "classes": [
+        "person (pose)"
+      ],
+      "timecode": "момент пересечения",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_49",
+          "point": "п. 41",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 8, п. 21",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "group": "Документы и люди",
+      "code": "OTHER",
+      "condition": "Клиент ушёл, а его document остался на столе кассира (документ не возвращён).",
+      "classes": [
+        "document",
+        "person"
+      ],
+      "timecode": "уход клиента",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 19 пп. 6), п. 31 пп. 6)",
+          "basis_type": "банковская практика (прямой нормы нет)"
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "group": "Пересчёт и проверка",
+      "code": "V-07",
+      "condition": "cash_stack от клиента ушёл в сейф или обратно клиенту, не пройдя counter.",
+      "classes": [
+        "cash_stack",
+        "counter",
+        "safe_open"
+      ],
+      "timecode": "пачка входит в сейф / уходит клиенту",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-13"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 19 пп. 2), п. 9, п. 41",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_230",
+          "point": "пп. 36–37",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "group": "Пересчёт и проверка",
+      "code": "V-07",
+      "condition": "Кассир дважды достал деньги из counter, а вторая (отбракованная) стопка не побывала у uv_lamp до того, как её убрали, объединили или выдали.",
+      "classes": [
+        "counter",
+        "cash_stack",
+        "uv_lamp"
+      ],
+      "timecode": "момент уборки/объединения/выдачи непроверенной стопки",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 19 пп. 2), п. 9, п. 41",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_230",
+          "point": "пп. 36–37",
+          "basis_type": "прямая норма"
+        }
+      ],
+      "note": "Если uv_lamp нет в кадре — не утверждать, отправить на VLM-проверку."
+    },
+    {
+      "id": "R09",
+      "group": "Пересчёт и проверка",
+      "code": "V-06",
+      "condition": "Деньги к выдаче ушли клиенту, не пройдя counter на его глазах.",
+      "classes": [
+        "cash_stack",
+        "counter"
+      ],
+      "timecode": "передача денег клиенту",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20, п. 31 пп. 4)",
+          "basis_type": "прямая норма"
+        }
+      ],
+      "note": "Исключение: целый банковский корешок с бандеролью (п. 32)."
+    },
+    {
+      "id": "R10",
+      "group": "Пересчёт и проверка",
+      "code": "V-06",
+      "condition": "Пересчёт на counter идёт, когда клиента у окна уже нет.",
+      "classes": [
+        "counter",
+        "cash_stack",
+        "person"
+      ],
+      "timecode": "начало пересчёта после ухода клиента",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-34"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20, п. 31 пп. 4)",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R11",
+      "group": "Пересчёт и проверка",
+      "code": "V-08",
+      "condition": "Купюру проверили у uv_lamp и вернули клиенту без участия второго работника (заведующего).",
+      "classes": [
+        "uv_lamp",
+        "cash_stack",
+        "person"
+      ],
+      "timecode": "возврат купюры клиенту",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 59",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "group": "Пересчёт и проверка",
+      "code": "V-02",
+      "condition": "В одной пачке видны купюры разного цвета/размера (разные номиналы).",
+      "classes": [
+        "cash_stack"
+      ],
+      "timecode": "формирование пачки",
+      "severity": "средняя",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-44"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 43, п. 45, п. 46, п. 50",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R13",
+      "group": "Деньги на столе и сейф",
+      "code": "V-01",
+      "condition": "Новый cash_stack положили на неубранные деньги прошлого клиента.",
+      "classes": [
+        "cash_stack"
+      ],
+      "timecode": "слияние стопок",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-4",
+        "Х-47"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 21, п. 20",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R14",
+      "group": "Деньги на столе и сейф",
+      "code": "V-01",
+      "condition": "При обмене принятая и выдаваемая пачки лежат одной стопкой.",
+      "classes": [
+        "cash_stack"
+      ],
+      "timecode": "слияние стопок",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 21, п. 20",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R15",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "Клиент ушёл, а cash_stack остался на столе к приходу следующего.",
+      "classes": [
+        "cash_stack",
+        "person"
+      ],
+      "timecode": "приход следующего клиента",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-38",
+        "Х-46"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R16",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "cash_stack лежит без движения и без рук дольше T_cash_idle.",
+      "classes": [
+        "cash_stack"
+      ],
+      "timecode": "момент, когда истёк порог",
+      "severity": "средняя",
+      "new": false,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R17",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "safe_open, а руки кассира не у сейфа дольше T_safe_open.",
+      "classes": [
+        "safe_open"
+      ],
+      "timecode": "рука ушла от открытого сейфа",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-20"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R18",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "key_in в замке, пока кассир обслуживает клиента и не работает с сейфом.",
+      "classes": [
+        "key_in"
+      ],
+      "timecode": "первый кадр key_in без работы с сейфом",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R19",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "safe_open во время передачи денег или документа через окно (сейф открыт на виду у клиента).",
+      "classes": [
+        "safe_open",
+        "cash_stack",
+        "document"
+      ],
+      "timecode": "момент передачи",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R20",
+      "group": "Деньги на столе и сейф",
+      "code": "V-03",
+      "condition": "cash-in-transit bag лежит на столе без рук дольше T_cash_idle или не убран в сейф после приёма.",
+      "classes": [
+        "cash-in-transit bag"
+      ],
+      "timecode": "момент, когда истёк порог",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R21",
+      "group": "Деньги на столе и сейф",
+      "code": "OTHER",
+      "condition": "Операция прошла (деньги убраны или выданы), а ноутбук всё время был screen_locked — сумма не зафиксирована в системе.",
+      "classes": [
+        "screen_locked",
+        "screen_on",
+        "cash_stack"
+      ],
+      "timecode": "уборка/выдача денег",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 26",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R22",
+      "group": "Уход кассира",
+      "code": "V-04",
+      "condition": "Кассир ушёл, пока клиент у окна.",
+      "classes": [
+        "person"
+      ],
+      "timecode": "уход кассира",
+      "severity": "критическая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-15"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 22, п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R23",
+      "group": "Уход кассира",
+      "code": "V-04",
+      "condition": "Кассир ушёл, а на столе остались cash_stack, document или folder.",
+      "classes": [
+        "cash_stack",
+        "document",
+        "folder",
+        "person"
+      ],
+      "timecode": "уход кассира",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-24",
+        "Х-26"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 22, п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R24",
+      "group": "Уход кассира",
+      "code": "V-04",
+      "condition": "Кассир ушёл, а сейф открыт (safe_open) или ключ в замке (key_in).",
+      "classes": [
+        "safe_open",
+        "key_in",
+        "person"
+      ],
+      "timecode": "уход кассира",
+      "severity": "критическая",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-11",
+        "Х-22"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 22, п. 20",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 80",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R25",
+      "group": "Уход кассира",
+      "code": "V-04",
+      "condition": "Кассир ушёл, а ноутбук не заблокирован (screen_on).",
+      "classes": [
+        "screen_on",
+        "person"
+      ],
+      "timecode": "уход кассира",
+      "severity": "средняя",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-28"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 22",
+          "basis_type": "вывод из нормы"
+        },
+        {
+          "source_id": "-",
+          "point": "политика ИБ банка",
+          "basis_type": "банковская практика (прямой нормы нет)"
+        }
+      ]
+    },
+    {
+      "id": "R26",
+      "group": "Уход кассира",
+      "code": "V-05",
+      "condition": "После прохода door_open держится дольше T_door_open.",
+      "classes": [
+        "door_open"
+      ],
+      "timecode": "первый кадр, с которого дверь осталась открытой",
+      "severity": "средняя",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-30",
+        "Х-32",
+        "Х-33"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 8; п. 16 пп. 1)",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R27",
+      "group": "Уход кассира",
+      "code": "V-05",
+      "condition": "door_open, когда на столе лежит cash_stack или открыт сейф (safe_open).",
+      "classes": [
+        "door_open",
+        "cash_stack",
+        "safe_open"
+      ],
+      "timecode": "первый кадр совпадения",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 8; п. 16 пп. 1)",
+          "basis_type": "вывод из нормы"
+        }
+      ],
+      "note": "Более серьёзный вариант R26."
+    },
+    {
+      "id": "R28",
+      "group": "Личные вещи и хищение",
+      "code": "V-16",
+      "condition": "bag на столе или в зоне кассира.",
+      "classes": [
+        "bag"
+      ],
+      "timecode": "первое появление",
+      "severity": "средняя",
+      "new": false,
+      "seen_in_dataset": [
+        "Х-40"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 12",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R29",
+      "group": "Личные вещи и хищение",
+      "code": "V-16",
+      "condition": "jacket лежит на столе во время обслуживания.",
+      "classes": [
+        "jacket"
+      ],
+      "timecode": "первое появление",
+      "severity": "низкая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 12",
+          "basis_type": "прямая норма"
+        }
+      ],
+      "note": "jacket в руках/надевается при уходе — не нарушение, а сигнал ухода."
+    },
+    {
+      "id": "R30",
+      "group": "Личные вещи и хищение",
+      "code": "V-17",
+      "condition": "phone в руке или на столе кассира.",
+      "classes": [
+        "phone"
+      ],
+      "timecode": "первое появление",
+      "severity": "высокая",
+      "new": false,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 12",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R31",
+      "group": "Личные вещи и хищение",
+      "code": "V-17",
+      "condition": "phone поднесён к cash_stack, document или экрану ноутбука (похоже на съёмку).",
+      "classes": [
+        "phone",
+        "cash_stack",
+        "document",
+        "screen_on"
+      ],
+      "timecode": "момент поднесения",
+      "severity": "критическая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 12",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R32",
+      "group": "Личные вещи и хищение",
+      "code": "V-18",
+      "condition": "Часть cash_stack ушла к телу/карману кассира и пропала не в сейфе.",
+      "classes": [
+        "cash_stack",
+        "person (pose)"
+      ],
+      "timecode": "момент ухода денег к телу",
+      "severity": "критическая",
+      "new": false,
+      "seen_in_dataset": [
+        "X-1"
+      ],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 12, п. 14",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R33",
+      "group": "Личные вещи и хищение",
+      "code": "V-19",
+      "condition": "cash_stack ушёл под край стола или из кадра и не вернулся.",
+      "classes": [
+        "cash_stack"
+      ],
+      "timecode": "кадр исчезновения",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_49",
+          "point": "п. 11 пп. 2)",
+          "basis_type": "прямая норма"
+        },
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 16 пп. 6)",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R34",
+      "group": "Передача и инкассация",
+      "code": "V-20",
+      "condition": "cash_stack или cash-in-transit bag передан через дверь (door_open), а не через окно.",
+      "classes": [
+        "cash_stack",
+        "cash-in-transit bag",
+        "door_open"
+      ],
+      "timecode": "момент передачи",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_14",
+          "point": "п. 16 пп. 3), 4)",
+          "basis_type": "вывод из нормы"
+        }
+      ]
+    },
+    {
+      "id": "R35",
+      "group": "Передача и инкассация",
+      "code": "V-14",
+      "condition": "cash_stack передан от одного работника другому из рук в руки без folder/документа.",
+      "classes": [
+        "cash_stack",
+        "folder",
+        "person"
+      ],
+      "timecode": "момент передачи",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 15",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R36",
+      "group": "Передача и инкассация",
+      "code": "V-21",
+      "condition": "cash-in-transit bag вскрыли сразу, без осмотра.",
+      "classes": [
+        "cash-in-transit bag"
+      ],
+      "timecode": "момент вскрытия",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 24",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R37",
+      "group": "Передача и инкассация",
+      "code": "V-22",
+      "condition": "cash-in-transit bag вскрыли, когда инкассатора у окна уже нет.",
+      "classes": [
+        "cash-in-transit bag",
+        "person"
+      ],
+      "timecode": "момент вскрытия",
+      "severity": "высокая",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 25",
+          "basis_type": "прямая норма"
+        }
+      ]
+    },
+    {
+      "id": "R38",
+      "group": "Передача и инкассация",
+      "code": "V-09",
+      "condition": "Кассир один формирует пачки у folder (с печатью) без второго работника.",
+      "classes": [
+        "cash_stack",
+        "folder",
+        "person"
+      ],
+      "timecode": "начало формирования пачек",
+      "severity": "средняя",
+      "new": true,
+      "seen_in_dataset": [],
+      "refs": [
+        {
+          "source_id": "NBRK_231",
+          "point": "п. 42",
+          "basis_type": "прямая норма"
+        }
+      ]
+    }
+  ],
+  "fallback": [
+    {
+      "code": "UNCLEAR",
+      "condition": "Камера закрыта или кадр неразборчив дольше T_unclear_s."
+    },
+    {
+      "code": "NO_VIOLATION",
+      "condition": "Весь ролик совпал с алгоритмами A1–A6, ни одно правило не сработало."
+    }
+  ]
+}

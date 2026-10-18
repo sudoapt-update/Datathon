@@ -1,0 +1,702 @@
+{
+  "tp": 16,
+  "fp": 0,
+  "fn": 6,
+  "tn": 20,
+  "type_ok": 16,
+  "rows": [
+    {
+      "stem": "X-1",
+      "gold": true,
+      "code": "V-18",
+      "expected": "cash_in_pocket",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 6.06
+    },
+    {
+      "stem": "X-10",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-11",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service"
+      ],
+      "times": [
+        17.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 4.05
+    },
+    {
+      "stem": "X-12",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 6.09
+    },
+    {
+      "stem": "X-13",
+      "gold": true,
+      "code": "V-07",
+      "expected": "no_authenticity_check",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service",
+        "no_authenticity_check"
+      ],
+      "times": [
+        58.67,
+        23.67
+      ],
+      "frames": [
+        3,
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 9.13
+    },
+    {
+      "stem": "X-14",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 19.2
+    },
+    {
+      "stem": "X-15",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service"
+      ],
+      "times": [
+        14.0
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-16",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.04
+    },
+    {
+      "stem": "X-17",
+      "gold": true,
+      "code": "V-11",
+      "expected": "no_client_identification",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "no_client_identification"
+      ],
+      "times": [
+        10.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 3.05
+    },
+    {
+      "stem": "X-18",
+      "gold": true,
+      "code": "V-15",
+      "expected": "unauthorized_person_in_cash_desk",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "unauthorized_person_in_cash_desk"
+      ],
+      "times": [
+        15.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 4.04
+    },
+    {
+      "stem": "X-19",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 8.07
+    },
+    {
+      "stem": "X-2",
+      "gold": true,
+      "code": "V-11",
+      "expected": "no_client_identification",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 3.05
+    },
+    {
+      "stem": "X-20",
+      "gold": true,
+      "code": "V-03",
+      "expected": "cash_left_unsecured",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cash_left_unsecured"
+      ],
+      "times": [
+        5.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 2.04
+    },
+    {
+      "stem": "X-21",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-22",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service"
+      ],
+      "times": [
+        13.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-23",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-24",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service"
+      ],
+      "times": [
+        8.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 2.06
+    },
+    {
+      "stem": "X-25",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 4.06
+    },
+    {
+      "stem": "X-26",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service",
+        "cash_left_unsecured",
+        "cash_desk_door_open"
+      ],
+      "times": [
+        13.0,
+        12.0,
+        13.67
+      ],
+      "frames": [
+        3,
+        3,
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 20.53
+    },
+    {
+      "stem": "X-27",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 4.06
+    },
+    {
+      "stem": "X-28",
+      "gold": true,
+      "code": "V-04",
+      "expected": "cashier_leaves_during_service",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cashier_leaves_during_service"
+      ],
+      "times": [
+        8.33
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 3.05
+    },
+    {
+      "stem": "X-29",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.05
+    },
+    {
+      "stem": "X-3",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.04
+    },
+    {
+      "stem": "X-30",
+      "gold": true,
+      "code": "V-05",
+      "expected": "cash_desk_door_open",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cash_desk_door_open"
+      ],
+      "times": [
+        2.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 7.04
+    },
+    {
+      "stem": "X-31",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.06
+    },
+    {
+      "stem": "X-32",
+      "gold": true,
+      "code": "V-05",
+      "expected": "cash_desk_door_open",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cash_desk_door_open"
+      ],
+      "times": [
+        3.33
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 7.08
+    },
+    {
+      "stem": "X-33",
+      "gold": true,
+      "code": "V-05",
+      "expected": "cash_desk_door_open",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cash_desk_door_open"
+      ],
+      "times": [
+        3.67
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 6.04
+    },
+    {
+      "stem": "X-34",
+      "gold": true,
+      "code": "V-06",
+      "expected": "recount_not_in_client_presence",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "recount_not_in_client_presence"
+      ],
+      "times": [
+        12.33
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 3.04
+    },
+    {
+      "stem": "X-35",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 8.09
+    },
+    {
+      "stem": "X-37",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-38",
+      "gold": true,
+      "code": "V-03",
+      "expected": "cash_left_unsecured",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "cash_left_unsecured"
+      ],
+      "times": [
+        28.0
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 8.1
+    },
+    {
+      "stem": "X-39",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 10.11
+    },
+    {
+      "stem": "X-4",
+      "gold": true,
+      "code": "V-01",
+      "expected": "mixing_cash_between_operations",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 9.13
+    },
+    {
+      "stem": "X-40",
+      "gold": true,
+      "code": "V-16",
+      "expected": "personal_items_in_cash_desk",
+      "status": "done",
+      "verdict": "violation",
+      "rules": [
+        "personal_items_in_cash_desk"
+      ],
+      "times": [
+        21.0
+      ],
+      "frames": [
+        3
+      ],
+      "error": null,
+      "tag": "TP+type",
+      "sec": 4.04
+    },
+    {
+      "stem": "X-43",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-44",
+      "gold": true,
+      "code": "V-02",
+      "expected": "fit_and_worn_mixed",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 3.05
+    },
+    {
+      "stem": "X-45",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 5.04
+    },
+    {
+      "stem": "X-46",
+      "gold": true,
+      "code": "V-03",
+      "expected": "cash_left_unsecured",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 3.03
+    },
+    {
+      "stem": "X-47",
+      "gold": true,
+      "code": "V-01",
+      "expected": "mixing_cash_between_operations",
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "FN",
+      "sec": 10.12
+    },
+    {
+      "stem": "X-48",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 10.09
+    },
+    {
+      "stem": "X-5",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 9.11
+    },
+    {
+      "stem": "X-8",
+      "gold": false,
+      "code": null,
+      "expected": null,
+      "status": "done",
+      "verdict": "no_violation",
+      "rules": [],
+      "times": [],
+      "frames": [],
+      "error": null,
+      "tag": "TN",
+      "sec": 5.06
+    }
+  ]
+}

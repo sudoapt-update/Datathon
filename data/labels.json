@@ -1,0 +1,257 @@
+{
+  "source": "C:\\Users\\User\\Downloads\\open_labels.xlsx",
+  "videos": {
+    "X-1": {
+      "has_violation": true,
+      "timestamp_sec": 22.0,
+      "code": "V-18",
+      "description": "Кассир убрал часть купюр из пересчитанной стопки себе. Кассир не отдал всю пересчитанную стопку клиенту."
+    },
+    "X-2": {
+      "has_violation": true,
+      "timestamp_sec": 10.0,
+      "code": "V-11",
+      "description": "Нет идентификации клиента. Операция начата без передачи и просмотра удостоверения."
+    },
+    "X-3": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-4": {
+      "has_violation": true,
+      "timestamp_sec": 57.0,
+      "code": "V-01",
+      "description": "Кассир положил купюры второго клиента в стопку, где лежали неубранные деньги первого клиента. Деньги каждой операции должны считаться отдельно. Деньги первого клиента должны быть убраны в сейф"
+    },
+    "X-5": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-8": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-10": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-11": {
+      "has_violation": true,
+      "timestamp_sec": 18.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, не выключив все устройства. Оставил сейф с ключом. Не забрал ключи от сейфа."
+    },
+    "X-12": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-13": {
+      "has_violation": true,
+      "timestamp_sec": 47.0,
+      "code": "V-07",
+      "description": "Кассир приняла и положила купюры в сейф, но деньги не прошли счётчик. Не пересчитала сумму купюр и не зафиксировала сумму в системе через ноутбук."
+    },
+    "X-14": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-15": {
+      "has_violation": true,
+      "timestamp_sec": 15.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, а деньги клиента лежали на столе. Уходить оставив деньги или документы нельзя. Нужно положить деньги или документы в сейф перед уходом из кассы."
+    },
+    "X-16": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-17": {
+      "has_violation": true,
+      "timestamp_sec": 7.0,
+      "code": "V-11",
+      "description": "Нет идентификации клиента. Операция начата без передачи и просмотра удостоверения. Кассир один формирует пачки или вскрывает сумку инкассации, клиента у окна нет"
+    },
+    "X-18": {
+      "has_violation": true,
+      "timestamp_sec": 20.0,
+      "code": "V-15",
+      "description": "Посторонний в кассе. В кассу зашел второй клиент до того как закончили обслуживать первого клиента."
+    },
+    "X-19": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-20": {
+      "has_violation": true,
+      "timestamp_sec": 5.0,
+      "code": "V-03",
+      "description": "Деньги оставлены открыто. Кассир не закрыл сейф после того как вытащил одну стопку купюр."
+    },
+    "X-21": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-22": {
+      "has_violation": true,
+      "timestamp_sec": 14.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, не выключив все устройства. Оставил сейф с ключом. Не забрал ключи от сейфа."
+    },
+    "X-23": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-24": {
+      "has_violation": true,
+      "timestamp_sec": 8.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, оставив документы открыто на столе. Нужно все документы и деньги положить в сейф, закрыть сейф и забрать ключи с собой. Стол должен быть пуст"
+    },
+    "X-25": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-26": {
+      "has_violation": true,
+      "timestamp_sec": 9.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, оставив деньги открыто на столе. Нужно все документы и деньги положить в сейф, закрыть сейф и забрать ключи с собой. Стол должен быть пуст"
+    },
+    "X-27": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-28": {
+      "has_violation": true,
+      "timestamp_sec": 7.0,
+      "code": "V-04",
+      "description": "Кассир вышел из кассы, не выключив ноутбук. Ноутбук должен быть выключен перед уходом."
+    },
+    "X-29": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-30": {
+      "has_violation": true,
+      "timestamp_sec": 13.0,
+      "code": "V-05",
+      "description": "Дверь кассы осталась открыта. Нужно закрывать дверь кассы."
+    },
+    "X-31": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-32": {
+      "has_violation": true,
+      "timestamp_sec": 5.0,
+      "code": "V-05",
+      "description": "Дверь кассы осталась открыта. Нужно закрывать дверь кассы."
+    },
+    "X-33": {
+      "has_violation": true,
+      "timestamp_sec": 6.0,
+      "code": "V-05",
+      "description": "Дверь кассы осталась открыта. Нужно закрывать дверь кассы."
+    },
+    "X-34": {
+      "has_violation": true,
+      "timestamp_sec": 13.0,
+      "code": "V-06",
+      "description": "Пересчёт не при клиенте. Клиент ушел до пересчёта денег. Пересчёт денег должен быть произведен при клиенте."
+    },
+    "X-35": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-37": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-38": {
+      "has_violation": true,
+      "timestamp_sec": 33.0,
+      "code": "V-03",
+      "description": "Деньги лежат на столе, деньги не убраны перед следующим клиентом в сейф. Деньги должны быть положены в сейф после каждого клиента."
+    },
+    "X-39": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-40": {
+      "has_violation": true,
+      "timestamp_sec": 17.0,
+      "code": "V-16",
+      "description": "Личные вещи кассира в кассе. Сумка, личные вещи на рабочем месте."
+    },
+    "X-43": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-44": {
+      "has_violation": true,
+      "timestamp_sec": 16.0,
+      "code": "V-02",
+      "description": "Разные номиналы / ветхие в одной пачке. При упаковке в один корешок идут купюры разного цвета/размера"
+    },
+    "X-45": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    },
+    "X-46": {
+      "has_violation": true,
+      "timestamp_sec": 11.0,
+      "code": "V-03",
+      "description": "Деньги оставлены открыто. Кассир не убрала отдельно в сейф деньги и оставила их на столе."
+    },
+    "X-47": {
+      "has_violation": true,
+      "timestamp_sec": 68.0,
+      "code": "V-01",
+      "description": "Кассир положил купюры второго клиента в стопку, где лежали неубранные деньги первого клиента. Деньги каждой операции должны считаться отдельно. Деньги первого клиента должны быть убраны в сейф"
+    },
+    "X-48": {
+      "has_violation": false,
+      "timestamp_sec": null,
+      "code": null,
+      "description": null
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Контроль кассовой дисциплины</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">ForteBank · Datathon 26</p>
+      <h1>Проверка видео работы кассира</h1>
+      <p class="lead">
+        Загрузите ролик в формате .mov. Сервис локально анализирует кадры и показывает
+        признаки возможных нарушений, таймкод и кадр-доказательство.
+      </p>
+    </header>
+
+    <form id="upload-form" class="card">
+      <label class="file">
+        <input id="file" type="file" accept=".mov,video/quicktime" required />
+        <span>Выбрать видео .mov</span>
+      </label>
+      <label class="key">
+        API-ключ
+        <input id="api-key" type="password" value="datathon-jury-key-change-me" />
+      </label>
+      <button type="submit">Запустить анализ</button>
+      <p id="status" class="status">Ожидание файла</p>
+    </form>
+
+    <section id="result" class="card hidden"></section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
